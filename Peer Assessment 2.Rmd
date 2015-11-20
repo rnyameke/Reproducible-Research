@@ -1,0 +1,16 @@
+---
+title: "PA2_Rep_Research"
+author: "Rose Nyameke"
+date: "November 19, 2015"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+##Title
+
+##Synopsis
+
+##Data Processing
+
+##Results
