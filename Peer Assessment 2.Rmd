@@ -12,5 +12,52 @@ output:
 ##Synopsis
 
 ##Data Processing
+###Which types of events are most harmful with respect to population health?
+````{r health_implication, echo = FALSE, message = FALSE}
+# selecting top 10 events with highest fatalities and injuries (combined)
+
+# subsetting evtype, injuries and fatalities columns
+health_imp <- subset(data, select = c(EVTYPE, INJURIES, FATALITIES))
+     
+#group by event type
+health_imp <- group_by(health_imp, EVTYPE)
+
+#sum of fatalities and injuries by event
+health_imp <- summarize(health_imp, sum(INJURIES), sum(FATALITIES))
+
+#rename columns
+names(health_imp) <- c("evtype", "injuries", "fatalities")
+
+# creating the column to hold the total of injuries and fatalities
+health_imp$total <- health_imp$injuries + health_imp$fatalities
+
+#order the data frame by total column & select the top 10
+health_imp <- health_imp[order(-health_imp$total), ]
+top_health_imp <- health_imp[1:10, ]
+````
+
+###Which events have the most economic impact
+````{r economic_consequence, echo = FALSE, message = FALSE}
+##selecting top 10 events with highest fatalities and injuries (combined)##
+# subsetting evtype, injuries and fatalities columns
+econ <- subset(data, select = c(EVTYPE, INJURIES, FATALITIES))
+     
+#group by event type
+econ <- group_by(econ, EVTYPE)
+
+#sum of fatalities and injuries by event
+econ <- summarize(econ, sum(INJURIES), sum(FATALITIES))
+
+#rename columns
+names(econ) <- c("evtype", "injuries", "fatalities")
+
+# creating the column to hold the total of injuries and fatalities
+econ$total <- econ$injuries + econ$fatalities
+
+#order the data frame by total column & select the top 10
+econ <- econ[order(-econ$total), ]
+top_econ <- econ[1:10, ]
+````
 
 ##Results
+
