@@ -83,8 +83,8 @@ img {
 <p>Using data from the NOAA Storm database, I explore the impact of storms and other natural disasters on the health of the population and on the economy. To show the impact of storms on the health of the population, I extract the five storms that resulted in the most injuries and fatalities. In order to capture the economic impact of storms, I selected the five storms that caused the greatest property damage, as well as the five that caused the greatest crop damage. I found that, with the exception of hurricanes, the storms that caused the greatest property damage did not also cause the greatest crop damage. Additionally, the most property-damaging storm did more damage than all the top crop-damaging storms combined. Lastly, four out of the top property and crop-damaging storms were also among the top ten that impacted the health of the population.</p>
 <div id="data-processing" class="section level2">
 <h2>Data Processing</h2>
-<pre class="r"><code>#url &lt;- &quot;https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2&quot;
-#download.file(url, destfile = &quot;event_data.csv.bz2&quot;, method = &quot;curl&quot;)
+<pre class="r"><code>url &lt;- &quot;https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2&quot;
+download.file(url, destfile = &quot;event_data.csv.bz2&quot;, method = &quot;curl&quot;)
 data &lt;- read.csv(&quot;event_data.csv.bz2&quot;)
 library(dplyr)
 library(ggplot2)</code></pre>

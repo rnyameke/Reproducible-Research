@@ -20,9 +20,9 @@ combined. Lastly, four out of the top property and crop-damaging storms were als
 among the top ten that impacted the health of the population.
 
 ##Data Processing
-````{r load data and libraries, message = FALSE}
-#url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
-#download.file(url, destfile = "event_data.csv.bz2", method = "curl")
+````{r load data and libraries, message = FALSE, cache = TRUE}
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(url, destfile = "event_data.csv.bz2", method = "curl")
 data <- read.csv("event_data.csv.bz2")
 library(dplyr)
 library(ggplot2)

@@ -16,8 +16,8 @@ among the top ten that impacted the health of the population.
 ##Data Processing
 
 ```r
-#url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
-#download.file(url, destfile = "event_data.csv.bz2", method = "curl")
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(url, destfile = "event_data.csv.bz2", method = "curl")
 data <- read.csv("event_data.csv.bz2")
 library(dplyr)
 library(ggplot2)
