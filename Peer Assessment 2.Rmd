@@ -7,13 +7,23 @@ output:
     keep_md: yes
 ---
 
-##Title
-
-##Synopsis
+##Top 10 storms from 1950-2011
+Using data from the NOAA Storm database, I explore the impact of storms and other
+natural disasters on the health of the population, as well as the economic impact of
+storms. By isolating the 10 worst events in each category. To examine the economic
+impact, I selected the . I found that .
 
 ##Data Processing
+````{r load data and libraries, echo = FALSE, message = FALSE, cache = TRUE}
+url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(url, destfile = "event_data.csv.bz2", method = "curl")
+data <- read.csv("event_data.csv.bz2")
+library(dplyr)
+library(ggplot2)
+````
+
 ###Which types of events are most harmful with respect to population health?
-````{r health_implication, echo = FALSE, message = FALSE}
+````{r health_implication, echo = TRUE, cache = TRUE}
 # selecting top 10 events with highest fatalities and injuries (combined)
 
 # subsetting evtype, injuries and fatalities columns
@@ -37,21 +47,21 @@ top_health_imp <- health_imp[1:10, ]
 ````
 
 ###Which events have the most economic impact
-````{r economic_consequence, echo = FALSE, message = FALSE}
+````{r economic_consequence, echo = TRUE}
 ##selecting top 10 events with highest fatalities and injuries (combined)##
 # subsetting evtype, injuries and fatalities columns
-econ <- subset(data, select = c(EVTYPE, INJURIES, FATALITIES))
+econ_data <- subset(data, select = c(EVTYPE, PROPDMG, PROPDMGEXP, CROPDMG, CROPDMGEXP))
      
 #group by event type
-econ <- group_by(econ, EVTYPE)
+econ_data <- group_by(econ_data, EVTYPE, PROPDMGEXP, CROPDMGEXP)
 
-#sum of fatalities and injuries by event
-econ <- summarize(econ, sum(INJURIES), sum(FATALITIES))
+#sum of property and crop damage by event, keeping separate by exp
+econ_summary <- summarize(econ_data, sum(PROPDMG), sum(CROPDMG))
 
 #rename columns
-names(econ) <- c("evtype", "injuries", "fatalities")
+names(econ_summary) <- c("evtype", "propdmgexp", "cropdmgexp", "propdmg", "cropdmg")
 
-# creating the column to hold the total of injuries and fatalities
+#creating the column to hold the total of injuries and fatalities
 econ$total <- econ$injuries + econ$fatalities
 
 #order the data frame by total column & select the top 10
@@ -60,4 +70,5 @@ top_econ <- econ[1:10, ]
 ````
 
 ##Results
+The events that had the biggest effect on 
 
