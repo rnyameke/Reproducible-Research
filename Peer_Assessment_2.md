@@ -1,12 +1,6 @@
----
-title: "The Top Storms from 1950-2011"
-author: "Rose Nyameke"
-date: "November 22, 2015"
-output: 
-  html_document: 
-    keep_md: yes
-    toc: yes
----
+# The Top Storms from 1950-2011
+Rose Nyameke  
+November 22, 2015  
 Using data from the NOAA Storm database, I explore the impact of storms and other
 natural disasters on the health of the population and on the economy.
 To show the impact of storms on the health of the population, I extract the
@@ -20,19 +14,21 @@ combined. Lastly, four out of the top property and crop-damaging storms were als
 among the top ten that impacted the health of the population.
 
 ##Data Processing
-````{r load data and libraries, message = FALSE}
+
+```r
 #url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
 #download.file(url, destfile = "event_data.csv.bz2", method = "curl")
 data <- read.csv("event_data.csv.bz2")
 library(dplyr)
 library(ggplot2)
-````
+```
 
 ###Most harmful with respect to population health
 For this section, I used the total number of injuries and fatalities as an indicator
 of impact on population health.
 
-````{r health_implication}
+
+```r
 # selecting top 10 events with highest fatalities and injuries (combined)
 
 # subsetting evtype, injuries and fatalities columns
@@ -56,10 +52,11 @@ top_health_imp <- health_imp[1:10, ]
 
 #comparing the numbers
 health_graph <- ggplot(data = top_health_imp, aes(x = evtype, y = total)) + geom_bar(stat = "identity") + xlab("Event Type") + ylab("Fatalities and Injuries") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-````
+```
 
 ###Events with the most economic impact
-````{r economic_consequence}
+
+```r
 #selecting only the evtype, crop damage and property damage columns (plus their exponents)
 prop_data <- subset(data, select = c(EVTYPE, PROPDMG, PROPDMGEXP))
 crop_data <- subset(data, select = c(EVTYPE, CROPDMG, CROPDMGEXP))
@@ -75,12 +72,13 @@ crop_summary <- summarize(crop_data, sum(CROPDMG))
 #rename columns to remove the sum function from the names
 names(prop_summary) <- c("evtype", "propdmgexp", "propdmg")
 names(crop_summary) <- c("evtype", "cropdmgexp", "cropdmg")
-````
+```
 
 Upon inspection, the top 5 in each category will be in billions. I therefore decided to
 select only the rows that recorded property or crop damage in billions.
 
-````{r economic consequence 2}
+
+```r
 prop_dmg <- subset(prop_summary, propdmgexp == "B")
 crop_dmg <- subset(crop_summary, cropdmgexp == "B")
 
@@ -105,15 +103,18 @@ top_damage$dmgtype <- as.factor(top_damage$dmgtype)
 
 #graphs
 damage_graph <- ggplot(data = top_damage, aes(x = evtype, y = dmg, fill = dmgtype)) + geom_bar(stat = "identity") + xlab("Event Type") + ylab("Damage in billions") + facet_wrap(~dmgtype) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-````
+```
 
 ##Results
 ###Health Impact
 The events that had the biggest effect on population health, as determined by the
 total number of injuries and fatalities are shown below:
-````{r health graph}
+
+```r
 print(health_graph)
-````
+```
+
+![](Peer_Assessment_2_files/figure-html/health graph-1.png) 
 
 **Figure 1: events with the biggest effect on population health**
 
@@ -124,9 +125,12 @@ than the other events.
 The events that had the biggest economic impact are shown below. Note that the axes
 for both categories show a combination of all the events that caused the most
 damage (hence the blank variables).
-````{r damage graph}
+
+```r
 print(damage_graph)
-````
+```
+
+![](Peer_Assessment_2_files/figure-html/damage graph-1.png) 
 
 **Figure 2: events with the biggest economic effect**
 
